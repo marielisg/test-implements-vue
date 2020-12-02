@@ -20,7 +20,7 @@ jobs:
             - node-v1-
       - run:
           name: Install packages
-          command: npm install
+          command: npm i -D
 
       - save_cache:
           key: node-v1-{{ checksum "package.json" }}
@@ -29,7 +29,7 @@ jobs:
 
       - run:
           name: Run linter
-          command: eslint --ext .js,.vue src
+          command: npm run lint
 #      - run:
 #          name: Run tests
 #          command: echo "This is just sample config, please replace this command with real tests :)"
