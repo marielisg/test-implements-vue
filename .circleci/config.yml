@@ -1,0 +1,43 @@
+#version: 2.1
+#orbs:
+#  node: circleci/node@3.0.0
+#workflows:
+#  node-tests:
+#    jobs:
+#      - node/test
+
+version: 2
+
+jobs:
+  lint-and-deploy:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install packages
+          command: yarn install
+      - save_cache:
+          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - run:
+          name: Run linter
+          command: eslint --ext .js,.vue src
+#      - run:
+#          name: Run tests
+#          command: echo "This is just sample config, please replace this command with real tests :)"
+#      - run:
+#          name: Build and minify app
+#          command: yarn build
+#      - run:
+#          name: Deploy to AWS S3
+#          command: yarn deploy
+workflows:
+  version: 2
+  main:
+    jobs:
+      - lint-and-deploy
