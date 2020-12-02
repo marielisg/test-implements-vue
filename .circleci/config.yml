@@ -23,9 +23,9 @@ jobs:
           command: npm install
 
       - save_cache:
-       key: node-v1-{{ checksum "package.json" }}
-       paths:
-         - node_modules
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+           - node_modules
 
       - run:
           name: Run linter
