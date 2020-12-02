@@ -3,7 +3,7 @@
     "standard",
     "plugin:vue/essential"],
   "rules": {
-    //"no-new":0
+    "no-new":0
   },
   "plugins" : ["vue", "html"]
 }
