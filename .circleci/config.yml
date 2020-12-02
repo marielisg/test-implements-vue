@@ -16,14 +16,17 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - node-v1-{{ checksum "package.json" }}
+            - node-v1-
       - run:
           name: Install packages
-          command: yarn install
+          command: npm install
+
       - save_cache:
-          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - node_modules
+       key: node-v1-{{ checksum "package.json" }}
+       paths:
+         - node_modules
+
       - run:
           name: Run linter
           command: eslint --ext .js,.vue src
@@ -41,3 +44,6 @@ workflows:
   main:
     jobs:
       - lint-and-deploy
+
+
+
